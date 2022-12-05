@@ -4,9 +4,11 @@
 # We will need the following modules for sockets and to randomly select packets to lose
 import random
 from socket import *
+import time
 
 # Create a UDP socket (notice the use of SOCK_DGRAM for UDP packets)
 serverSocket = socket(AF_INET, SOCK_DGRAM)
+blacklist = []
 
 # Assign IP address and a port number to socket
 serverSocket.bind(('', 12000))
@@ -18,6 +20,10 @@ while True:
 
     # Receive the client packet along with the address it is coming from
     message, address = serverSocket.recvfrom(2046)
+    print(address)
+    if (address[0] in blacklist):
+        print("BLACKLISTED")
+        continue
     
     # Capitalize the message from the client
     message = message.upper()
@@ -27,4 +33,5 @@ while True:
         continue
     
     # Otherwise, the server responds
+    time.sleep(random.randint(300, 500)/1000)
     serverSocket.sendto(message, address)

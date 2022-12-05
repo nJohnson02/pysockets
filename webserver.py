@@ -30,7 +30,7 @@ while True:
             
         # Extract the path of the requested object from the message
         # The path is the second part of HTTP header, identified by [1]
-        filename = "." + message.decode('utf-8').split()[1] # Note: these are Python file operations
+        filename = "." + message.decode('utf-8').split()[1]
         print("File name is: " + filename)
 
         # Because the extracted path of the HTTP request includes                                                 
